@@ -3,7 +3,7 @@
 
 alert temperatura_sensor;
 - min: 10
-- max: 80
+- max: 90
 
 alert clima_tempo;
 - max: 35.5
