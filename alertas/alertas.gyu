@@ -1,0 +1,9 @@
+# Alertas de produção. Edite aqui e abra um Pull Request.
+# O pipeline valida o arquivo antes de qualquer mudança chegar à main.
+
+alert temperatura_sensor;
+- min: 10
+- max: 80
+
+alert clima_tempo;
+- max: 35.5

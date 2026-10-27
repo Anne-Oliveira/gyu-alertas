@@ -1,0 +1,6 @@
+# Usado no exemplo "A saída esperada" do enunciado:
+#   ALERTAS[0].nome            -> temperatura_do_forno
+#   ALERTAS[0].disparou(95)    -> True
+#   ALERTAS[0].disparou(50)    -> False
+alert temperatura_do_forno;
+- max: 90

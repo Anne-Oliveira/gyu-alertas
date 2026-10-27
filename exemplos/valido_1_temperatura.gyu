@@ -1,0 +1,7 @@
+# Exemplo do enunciado: dois alertas, um com faixa e outro só com máximo.
+alert temperatura_sensor;
+- min: 10
+- max: 80
+
+alert clima_tempo;
+- max: 35.5

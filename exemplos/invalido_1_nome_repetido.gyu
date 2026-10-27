@@ -1,0 +1,7 @@
+# ERRO (semântico): dois alertas com o mesmo nome.
+alert temperatura_sensor;
+- min: 10
+- max: 80
+
+alert temperatura_sensor;
+- max: 100

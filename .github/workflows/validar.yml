@@ -1,0 +1,47 @@
+name: Validar alertas
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Testes do transpilador
+        run: python -m unittest discover -s tests
+
+      - name: Validar alertas.gyu e gerar alertas.py
+        shell: bash
+        run: |
+          mkdir -p build
+          if ! python gyu.py alertas/alertas.gyu -o build/alertas.py 2> erros.txt; then
+            # Converte "arquivo:linha[:coluna]: erro ...: msg" em anotação na linha do PR
+            while IFS= read -r linha; do
+              if [[ "$linha" =~ ^[^:]+:([0-9]+)(:[0-9]+)?:\ (.*)$ ]]; then
+                echo "::error file=alertas/alertas.gyu,line=${BASH_REMATCH[1]}::${BASH_REMATCH[3]}"
+              else
+                echo "::error::$linha"
+              fi
+            done < erros.txt
+            exit 1
+          fi
+
+      - name: Smoke test (importar ALERTAS)
+        run: |
+          cd build
+          python -c "from alertas import ALERTAS; assert ALERTAS; print(len(ALERTAS), 'alerta(s) carregado(s)')"
+
+      - name: Guardar alertas.py como artefato (só na main)
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v4
+        with:
+          name: alertas-py
+          path: build/alertas.py

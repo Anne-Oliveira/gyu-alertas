@@ -1,0 +1,8 @@
+# Nomes com acento, limites negativos/decimais, comentários e linhas em branco.
+
+alert pressão_câmara_fria;   # só vale o mínimo
+- min: -2.5
+
+alert umidade_solo2;
+- min: -10      # negativo é permitido
+- max: 0.75

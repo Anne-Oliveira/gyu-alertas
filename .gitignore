@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+build/
+erros.txt
+# alertas.py é artefato de build: nunca versionar
+/alertas.py

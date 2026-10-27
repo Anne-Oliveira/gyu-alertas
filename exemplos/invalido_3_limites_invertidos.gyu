@@ -1,0 +1,4 @@
+# ERRO (semântico): min (90) maior que max (10) -> o alerta nunca faria sentido.
+alert temperatura_sensor;
+- min: 90
+- max: 10
